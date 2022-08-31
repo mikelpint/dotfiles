@@ -475,7 +475,7 @@ dunst_dots () {
     if [ -d "$HOME/.config/dunst" ]
     then
         mkdir "$BACKUP_DIR/dunst/.config"
-        mv "$HOME/.config/dunst" "$BACKUP_DIR/dunst/.config"
+        mv "$HOME/.config/dunst" "$BACKUP_DIR/dunst/.config/dunst"
     fi
 
     delete_empty_backup_dir dunst
@@ -496,7 +496,7 @@ git_dots () {
 
     if [ -d "$HOME/.gitconf" ]
     then
-        mv "$HOME/.gitconf" "$BACKUP_DIR/git"
+        mv "$HOME/.gitconf" "$BACKUP_DIR/git/.gitconf"
     fi
 
     delete_empty_backup_dir git
@@ -520,7 +520,7 @@ i3_dots () {
     if [ -d "$HOME/.config/i3" ]
     then
         mkdir "$BACKUP_DIR/i3/.config"
-        mv "$HOM/.config/i3" "$BACKUP_DIR/i3/.config"
+        mv "$HOM/.config/i3" "$BACKUP_DIR/i3/.config/i3"
     fi
 
     delete_empty_backup_dir i3
@@ -537,7 +537,7 @@ neofetch_dots () {
     if [ -d "$HOME/.config/neofetch" ]
     then
         mkdir "$BACKUP_DIR/neofetch/.config"
-        mv "$HOME/.config/neofetch" "$BACKUP_DIR/neofetch/.config"
+        mv "$HOME/.config/neofetch" "$BACKUP_DIR/neofetch/.config/neofetch"
     fi
 
     delete_empty_backup_dir neofetch
@@ -554,7 +554,7 @@ picom_dots () {
     if [ -d "$HOME/.config/picom" ]
     then
         mkdir "$BACKUP_DIR/picom/.config"
-        mv "$HOME/.config/picom" "$BACKUP_DIR/picom/.config"
+        mv "$HOME/.config/picom" "$BACKUP_DIR/picom/.config/picom"
     fi
 
     delete_empty_backup_dir picom
@@ -571,7 +571,7 @@ polybar_dots () {
     if [ -d "$HOME/.config/polybar" ]
     then
         mkdir "$BACKUP_DIR/polybar/.config"
-        mv "$HOME/.config/polybar" "$BACKUP_DIR/polybar/.config"
+        mv "$HOME/.config/polybar" "$BACKUP_DIR/polybar/.config/polybar"
     fi
 
     delete_empty_backup_dir polybar
@@ -588,7 +588,7 @@ rofi_dots () {
     if [ -d "$HOME/.config/rofi" ]
     then
         mkdir "$BACKUP_DIR/rofi/.config"
-        mv "$HOME/.config/rofi" "$BACKUP_DIR/rofi/.config"
+        mv "$HOME/.config/rofi" "$BACKUP_DIR/rofi/.config/rofi"
     fi
 
     delete_empty_backup_dir rofi
@@ -609,7 +609,7 @@ tmux_dots () {
 
     if [ -d "$HOME/.tmux" ]
     then
-        mv "$HOME/.tmux" "$BACKUP_DIR/tmux"
+        mv "$HOME/.tmux" "$BACKUP_DIR/tmux/.tmux"
     fi
 
     delete_empty_backup_dir tmux
@@ -667,7 +667,7 @@ zsh_dots () {
     if [ -d "$HOME/.config/zsh" ]
     then
         mkdir "$BACKUP_DIR/zsh/.config"
-        mv "$HOME/.config/zsh" "$BACKUP_DIR/zsh/.config"
+        mv "$HOME/.config/zsh" "$BACKUP_DIR/zsh/.config/zsh"
     fi
 
     delete_empty_backup_dir zsh
