@@ -1,0 +1,96 @@
+#!/bin/bash
+
+# This is a simple rofi script that acts as a shortcut guide.
+# It is intended to work with my dotfiles (https://github.com/mikelpint/dotfiles).
+
+# The path to the configuration file that sets the theme of the shortcut guide as well as its behaviour.
+CONFIG=$HOME/.config/rofi/config/shortcutguide.rasi
+
+# The logo of the Super key will be stored in order to be easily changed for other keys that are not the Windows logo key such as macOS' Command key.
+SUPER_KEY_ICON="者"
+
+# Specify the shortcuts using the following scheme:
+# n lines (where n is the number of lines specified in the listview property of the configuration file), each one containing a combination of keys.
+# Another set of n lines, each one containing what its analogue in the keystroke list does.
+# That structure must be repeated another time. Otherwise, one column would not correspond to the other.
+# Also, the total number of shortcuts must be 2n.
+read -d '' SHORTCUTS << EOF
+$SUPER_KEY_ICON + Alt + 
+$SUPER_KEY_ICON + ﰵ
+$SUPER_KEY_ICON + ﰬ
+$SUPER_KEY_ICON + ﰯ
+$SUPER_KEY_ICON + ﰲ
+$SUPER_KEY_ICON + ﰵ + וּ
+$SUPER_KEY_ICON + ﰬ + וּ
+$SUPER_KEY_ICON + ﰯ + וּ
+$SUPER_KEY_ICON + ﰲ + וּ
+$SUPER_KEY_ICON + Número
+$SUPER_KEY_ICON + וּ + Número
+$SUPER_KEY_ICON + H
+$SUPER_KEY_ICON + V
+$SUPER_KEY_ICON + S
+$SUPER_KEY_ICON + W
+$SUPER_KEY_ICON + E
+$SUPER_KEY_ICON + וּ + Espacio
+$SUPER_KEY_ICON + Espacio
+$SUPER_KEY_ICON + A
+Abrir/cerrar la guía de atajos de teclado
+Cambiar el foco arriba
+Cambiar el foco abajo
+Cambiar el foco a la izquierda
+Cambiar el foco a la derecha
+Mover ventana arriba
+Mover ventana abajo
+Mover ventana a la izquierda
+Mover ventana a la derecha
+Cambiar a espacio de trabajo 1-10
+Mover ventana a espacio de trabajo 1-10
+Dividir horizontalmente
+Dividir verticalmente
+Modo stacking
+Modo tabbed
+Modo toggle split
+Convertir ventana en flotante/fija
+Cambiar foco a fija/flotante
+Cambiar foco a contenedor padre
+$SUPER_KEY_ICON + וּ + Q
+$SUPER_KEY_ICON + F
+$SUPER_KEY_ICON + וּ + R
+$SUPER_KEY_ICON + וּ + L
+$SUPER_KEY_ICON + Ctrl + וּ + R
+$SUPER_KEY_ICON + Ctrl + וּ + E
+$SUPER_KEY_ICON + וּ + PrintScreen
+$SUPER_KEY_ICON + R
+$SUPER_KEY_ICON + D
+$SUPER_KEY_ICON + 
+$SUPER_KEY_ICON + Alt + E
+$SUPER_KEY_ICON + Alt + V
+$SUPER_KEY_ICON + Alt + וּ + V
+$SUPER_KEY_ICON + Alt + W
+$SUPER_KEY_ICON + Alt + D
+$SUPER_KEY_ICON + Alt + Shift + W
+$SUPER_KEY_ICON + Alt + M
+$SUPER_KEY_ICON + Alt + B
+$SUPER_KEY_ICON + Alt + s
+Cerrar ventana
+Alternar modo de pantalla completa
+Redimensionar ventana
+Bloquear pantalla
+Reiniciar i3
+Salir de i3
+Capturar pantalla
+Menú de aplicaciones
+Menú de comandos
+Abrir terminal
+Abrir explorador de archivos
+Abrir Visual Studio Code
+Abrir Vim
+Abrir navegador
+Abrir Discord
+Abrir WhatsApp
+Abrir Spotify
+Abrir Bitwarden
+Abrir Steam
+EOF
+
+echo -e "$SHORTCUTS" | rofi -dmenu -config $CONFIG

@@ -1,0 +1,188 @@
+# Set the $mod key to be the Super key (Windows key)
+set $mod Mod4
+
+# Font for window titles
+font pango: UbuntuMono Nerd Font 11
+
+# Window borders and title
+for_window [class=".*"] border pixel 0
+title_align center
+for_window [class=".*"] title_window_icon no
+for_window [class=".*"] title_window_icon padding 1
+
+# Gaps
+smart_gaps on
+smart_gaps inverse_outer
+gaps inner 15
+gaps outer 5
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# Volume and media control
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5% && pactl set-sink-mute @DEFAULT_SINK@ 0
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5% && pactl set-sink-mute @DEFAULT_SINK@ 0
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+# Brightness control
+bindsym XF86MonBrightnessDown exec light -U 10
+bindsym XF86MonBrightnessUp exec light -A 10
+
+# Asus ROG laptop keyboard LED controls
+bindsym XF86KbdBrightnessDown exec --no-startup-id $HOME/.config/i3/scripts/kbdbright 0
+bindsym XF86KbdBrightnessUp exec --no-startup-id $HOME/.config/i3/scripts/kbdbright 1
+
+# Toggle touchpad
+bindsym XF86TouchpadToggle exec --no-startup-id $HOME/.config/i3/scripts/touchpad ToggleTouchpad
+
+# Kill focused window
+bindsym $mod+Shift+q kill
+
+# Start the program launcher ($mod + r for desktop applications and $mod + d for commands)
+bindsym $mod+r exec --no-startup-id rofi -show drun -config $HOME/.config/rofi/config/appmenu.rasi
+bindsym $mod+d exec --no-startup-id rofi -show run -config $HOME/.config/rofi/config/appmenu.rasi
+
+# Change focus
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Move focused window
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# Split in horizontal orientation
+bindsym $mod+h split h
+
+# Split in vertical orientation
+bindsym $mod+v split v
+
+# Enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# Change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# Toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# Change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# Focus the parent container
+bindsym $mod+a focus parent
+
+# Define names for default workspaces for which we configure key bindings later on
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+# Switch to workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+# Reload the configuration file
+bindsym $mod+Shift+c reload
+
+# Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Ctrl+Shift+r restart
+
+# Exit i3 (logs you out of your X session)
+bindsym $mod+Ctrl+Shift+e exec "i3-nagbar -t warning -m '¿Quieres cerrar la sesión X?' -B 'Sí, salir de i3' 'i3-msg exit'"
+
+# Resize window (you can also use the mouse for that)
+mode "resize" {
+    # These bindings trigger as soon as you enter the resize mode
+
+    # Pressing left will shrink the window’s width
+    # Pressing right will grow the window’s width
+    # Pressing up will shrink the window’s height
+    # Pressing down will grow the window’s height
+    bindsym Left resize shrink width 10 px or 10 ppt
+    bindsym Down resize grow height 10 px or 10 ppt
+    bindsym Up resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow width 10 px or 10 ppt
+
+    # Back to normal: Enter or Escape or $mod+Shift+r
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+Shift+r mode "default"
+}
+
+bindsym $mod+Shift+r mode "resize"
+
+# Start Polybar when launching i3
+exec_always --no-startup-id $HOME/.config/polybar/launch
+
+# Set the wallpaper
+exec_always --no-startup-id feh --no-fehbg --bg-scale $HOME/Imágenes/Fondos/1.jpg
+
+# Start Picom (Compton fork)
+exec_always --no-startup-id picom -b
+
+# Start Dunst (the notification daemon)
+exec --no-startup-id killall dunst
+exec --no-startup-id dunst -config $HOME/.config/dunst/dunstrc
+
+# Apply touchpad settings
+exec_always --no-startup-id $HOME/.config/i3/scripts/touchpad
+
+# Apply X11 settings
+exec_always --no-startup-id xrdb $HOME/.Xresources
+
+# Take screenshots
+bindsym Ctrl+Shift+Print exec --no-startup-id flameshot gui
+
+# Lock the screen
+bindsym $mod+Shift+l exec --no-startup-id $HOME/.config/i3/scripts/lockscreen
+
+# Shortcut guide
+bindsym $mod+Mod1+Tab exec --no-startup-id $HOME/.config/rofi/scripts/shortcutguide
+
+# App shortcuts
+bindsym $mod+Return exec i3-sensible-terminal -name "Terminal"
+bindsym $mod+Mod1+e exec --no-startup-id i3-sensible-terminal -name "Terminal" -e ranger
+bindsym $mod+Mod1+v exec --no-startup-id code
+bindsym $mod+Mod1+Shift+v exec --no-startup-id i3-sensible-terminal -name "Terminal" -e nvim
+bindsym $mod+Mod1+w exec --no-startup-id microsoft-edge-beta
+bindsym $mod+Mod1+Shift+w exec --no-startup-id i3-msg workspace 10; exec microsoft-edge-beta --new-window https://web.whatsapp.com
+bindsym $mod+Mod1+d exec --no-startup-id Discord
+bindsym $mod+Mod1+m exec --no-startup-id flatpak run com.spotify.Client
+bindsym $mod+Mod1+b exec --no-startup-id bitwarden
+bindsym $mod+Mod1+s exec --no-startup-id steam

@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Toggle Wi-Fi using NetworkManager.
+# This script is intended to work with my Polybar dotfiles.
+
+# Get the Wi-Fi adapter's curret state
+STATE=$(LANGUAGE=C nmcli -fields WIFI g)
+
+# If the adapter is enabled
+if [[ $STATE =~ "enabled" ]]
+then
+    # Disables the Wi-Fi
+    nmcli radio wifi off
+
+# If the adapter is disabled
+else
+    # Enables the Wi-Fi
+    nmcli radio wifi on
+fi

@@ -1,0 +1,19 @@
+@import "theme"
+
+window {
+    location: north west;
+    x-offset: 19.25%;
+    y-offset: 36;
+    width: 17.5%;
+}
+
+entry {
+    enabled: false;
+}
+
+listview {
+    layout: vertical;
+    spacing: 5px;
+    padding: 0px 0px;
+    lines: 5;
+}

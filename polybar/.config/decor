@@ -1,0 +1,144 @@
+[module/spacing]
+type = custom/text
+content = " "
+content-background = ${color.background}
+
+[module/modulesep]
+type = custom/text
+content = " "
+
+content-font = 3
+content-background = ${color.background}
+content-foreground = ${color.altblack}
+content-padding = 0.75
+
+[module/LD]
+type = custom/text
+content = "%{T3}%{T-}"
+content-background = ${color.background}
+content-foreground = ${color.altblack}
+
+[module/RD]
+type = custom/text
+content = "%{T3}%{T-}"
+content-background = ${color.background}
+content-foreground = ${color.altblack}
+
+[module/RLD]
+type = custom/text
+content = "%{T3}%{T-}"
+content-font = 3
+content-background = ${color.background}
+content-foreground = ${color.red}
+
+[module/RRD]
+type = custom/text
+content = "%{T3}%{T-}"
+content-font = 3
+content-background = ${color.background}
+content-foreground = ${color.red}
+
+[module/WLD]
+type = custom/text
+content = "%{T3}%{T-}"
+content-font = 3
+content-background = ${color.background}
+content-foreground = ${color.white}
+
+[module/WRD]
+type = custom/text
+content = "%{T3}%{T-}"
+content-font = 3
+content-background = ${color.background}
+content-foreground = ${color.white}
+
+[module/CLD]
+type = custom/text
+content = "%{T3}%{T-}"
+content-font = 3
+content-background = ${color.background}
+content-foreground = ${color.cyan}
+
+[module/CRD]
+type = custom/text
+content = "%{T3}%{T-}"
+content-font = 3
+content-background = ${color.background}
+content-foreground = ${color.cyan}
+
+[module/MLD]
+type = custom/text
+content = "%{T3}%{T-}"
+content-font = 3
+content-background = ${color.background}
+content-foreground = ${color.magenta}
+
+[module/MRD]
+type = custom/text
+content = "%{T3}%{T-}"
+content-font = 3
+content-background = ${color.background}
+content-foreground = ${color.magenta}
+
+[module/YLD]
+type = custom/text
+content = "%{T3}%{T-}"
+content-font = 3
+content-background = ${color.background}
+content-foreground = ${color.yellow}
+
+[module/YRD]
+type = custom/text
+content = "%{T3}%{T-}"
+content-font = 3
+content-background = ${color.background}
+content-foreground = ${color.yellow}
+
+[module/GLD]
+type = custom/text
+content = "%{T3}%{T-}"
+content-font = 3
+content-background = ${color.background}
+content-foreground = ${color.green}
+
+[module/GRD]
+type = custom/text
+content = "%{T3}%{T-}"
+content-font = 3
+content-background = ${color.background}
+content-foreground = ${color.green}
+
+[module/BLD]
+type = custom/text
+content = "%{T3}%{T-}"
+content-font = 3
+content-background = ${color.background}
+content-foreground = ${color.blue}
+
+[module/BRD]
+type = custom/text
+content = "%{T3}%{T-}"
+content-font = 3
+content-background = ${color.background}
+content-foreground = ${color.blue}
+
+[module/YPL]
+type = custom/text
+content = "%{T3}%{T-}"
+content-font = 3
+content-background = ${color.green}
+content-foreground = ${color.yellow}
+
+[module/CPL]
+type = custom/text
+content = "%{T3}%{T-}"
+content-font = 3
+content-background = ${color.yellow}
+content-foreground = ${color.cyan}
+
+[module/RPL]
+type = custom/text
+content = "%{T3}%{T-}"
+content-font = 3
+content-background = ${color.magenta}
+content-foreground = ${color.red}

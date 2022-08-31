@@ -1,0 +1,77 @@
+#!/bin/bash
+
+# This script serves as a minimal Wi-Fi menu that uses Network Manager to scan for networks and Rofi for showing the menu.
+
+# It is based on rofi-wifi-menu (https://github.com/zbaylin/rofi-wifi-menu) and is intended to work with my dotfiles (https://github.com/mikelpint/dotfiles).
+
+# Configuration files for the menu.
+CONFIG=$HOME/.config/rofi/config/wifimenu.rasi
+PASSWDCONFIG=$HOME/.config/rofi/config/wifipassword.rasi
+NOWIFICONFIG=$HOME/.config/rofi/config/nowifi.rasi
+
+# Get the Wi-Fi adapter's curret state
+STATE=$(LANGUAGE=C nmcli -fields WIFI g)
+
+# If the adapter is disabled:
+if [[ $STATE =~ "disabled" ]]
+then
+    # Show a menu stating the problem and exit
+    echo 'La conexión Wi-Fi no está habilitada.' | rofi -dmenu -config $NOWIFICONFIG
+    exit
+fi
+
+# Show the SSIDs of the networks that Network Manager has found in a menu
+SSID=$(nmcli --fields SSID,BARS device wifi list | sed '/^--/d' | uniq -u | rofi -dmenu -config $CONFIG | sed 's/\s\{2,\}/\|/g' | awk -F '|' '{print $1}')
+
+# If the user pressed the ESC key:
+if [[ $SSID == '' ]]
+then
+    # Exit the program
+    exit
+fi
+
+# See if the selected network is already connected to the Wi-Fi adapter and also get its UUID
+CONNECTION=$(nmcli connection show | grep "$SSID" | sed 's/\s\{2,\}/\|/g' | awk -F '|' '{print $4}')
+UUID=$(nmcli connection show | grep "$SSID" | sed 's/\s\{2,\}/\|/g' | awk -F '|' '{print $2}')
+
+# If the network is not connected:
+# - If there have been no previous attempts to connect to the network:
+#   - The $CONNECTION variable will be an empty string
+# - If there have been any attempts to connect to the network but it is not connected at the moment:
+#   - The $CONNECTION variable will be an string containing '--'
+# - If a connection has never been established:
+#   - The file /etc/NetworkManager/system-connections/<SSID> 1-<UUID>.nmconnection will not exist
+
+# If the requirements mentioned above are not met:
+if [[ $CONNECTION != '' ]] || [[ $CONNECTION != '--' ]] && [[ -f "/etc/NetworkManager/system-connections/$SSID 1-$UUID.nmconnection" ]]
+then
+    # The network is known
+    KNOWN=true
+
+# If the requirements mentioned above are met:
+else
+    # The network is not known
+    KNOWN=false
+fi
+
+# If the network is known:
+if [ $KNOWN = true ]
+then
+    # Establishes a connection
+    nmcli con up $SSID
+
+# If the network is not known:
+else
+    # Ask the user for the Wi-Fi password
+    WIFIPASS=$(rofi -dmenu -config $PASSWDCONFIG)
+
+    # If the user pressed the ESC key or entered an empty string as password:
+    if [[ $WIFIPASS == '' ]]
+    then
+        # Exit the program
+        exit
+    fi
+
+    # Connect to the Wi-Fi network using the password
+    nmcli dev wifi con $SSID password $WIFIPASS
+fi

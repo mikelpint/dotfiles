@@ -1,0 +1,58 @@
+#!/bin/bash
+
+# This simple script applies my preferred touchpad configuration as well as toggling the touchpad.
+# It is intented to work with my i3 dotfiles for the ASUS ROG Strix G15 G513IH.
+
+# It requires xinput in order to work.
+
+# Check if xinput is installed.
+if [ ! -f /usr/bin/xinput ]
+then
+    # If it is not installed, a notification is sent to the notification daemon (dunst, notify-osd, ...) and the script exits with error code 1.
+    notify-send "No se puede configurar el touchpad." "Instala xinput."
+    exit 1
+fi
+
+# Search for all the devices whose name contains 'Touchpad' and adds their id to a list.
+ids=$(xinput --list | awk -v search="Touchpad" '$0 ~ search {match($0, /id=[0-9]+/); if (RSTART) print substr($0, RSTART+3, RLENGTH-3)}')
+
+# For each touchpad:
+for id in $ids
+do
+    # If no parameters were passed:
+    if [ -z ${1+x} ]
+    then
+        # The following touchpad settings will be applied:
+
+        # Tapping enabled
+        xinput set-prop $id 'libinput Tapping Enabled' 1
+        # Natural scrolling enabled
+        xinput set-prop $id 'libinput Natural Scrolling Enabled' 1
+        # Each scroll scrolls 10 pixels in distance
+        xinput set-prop $id 'libinput Scrolling Pixel Distance' 10
+        # Middle mouse click emulation is enabled
+        xinput set-prop $id 'libinput Middle Emulation Enabled' 1
+        # Disable the touchpad while typing
+        xinput set-prop $id 'libinput Disable While Typing Enabled' 1
+
+    # If the first parameter is ToggleTouchpad
+    elif [ $1 = "ToggleTouchpad" ]
+    then
+        # The touchpad's will change its state
+
+        # The current state of the touchpad is obtained.
+        enabled=$(xinput list-props $id | grep "Device Enabled" | cut -c 24-)
+
+        # If the touchpad is currently enabled (its 'Device Enabled' prop has 1 as its value):
+        if [ $enabled = '1' ]
+        then
+            # Disables the touchpad
+            xinput set-prop $id "Device Enabled" 0
+
+        # If the touchpad is currently disabled (its 'Device Enabled' prop has 0 as its value):
+        else
+            # Enables the touchpad
+            xinput set-prop $id "Device Enabled" 1
+        fi
+    fi
+done

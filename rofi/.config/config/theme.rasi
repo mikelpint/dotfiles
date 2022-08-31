@@ -1,0 +1,77 @@
+* {
+    background-color: #2E3440;
+    text-color: #D8DEE9;
+    border-color: #2E3440;
+    font: "UbuntuMono Nerd Font 14";
+}
+
+window {
+    background-color: #2E3440;
+    text-color: #D8DEE9;
+    border-color: #2E3440;
+    font: inherit;
+    location: north west;
+    x-offset: 14;
+    y-offset: 36;
+    width: 35%;
+    padding: 15px;
+    border: 0px;
+    border-radius: 8px;
+    children: [ horibox ];
+}
+
+horibox {
+    background-color: inherit;
+    text-color: inherit;
+    border-color: inherit;
+    font: inherit;
+    orientation: vertical;
+    children: [ prompt, entry, listview ];
+}
+
+prompt {
+    enabled: false;
+}
+
+entry {
+    expand: false;
+    width: 7em;
+    placeholder: "Escribe aquí para buscar...";
+    placeholder-color: #D8DEE9;
+    blink: true;
+    margin: 5px 0px;
+    text-color: #D8DEE9;
+    background-color: #2E3440;
+}
+
+listview {
+    layout: vertical;
+    spacing: 5px;
+    padding: 5px 0px;
+    lines: 10;
+    scrollbar: false;
+    border: 0px solid;
+    border-radius: 10px;
+}
+
+element {
+    padding: 0px 5px;
+    border: 0;
+}
+
+element normal normal,
+element normal urgent,
+element normal active,
+element alternate normal,
+element alternate urgent,
+element alternate active {
+    text-color: #D8DEE9;
+    background-color: #2E3440;
+}
+
+element selected normal,
+element selected urgent,
+element selected active {
+    text-color: #2E3440;
+    background-color: #D8DEE9;
+}

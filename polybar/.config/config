@@ -1,0 +1,79 @@
+[global/wm]
+margin-bottom = 0
+margin-top = 0
+
+include-file = ~/.config/i3/polybar/colors
+include-file = ~/.config/i3/polybar/modules
+include-file = ~/.config/i3/polybar/decor
+include-file = ~/.config/i3/polybar/system
+
+[bar/main]
+monitor =
+monitor-fallback =
+monitor-strict = false
+
+locale = es_ES.UTF-8
+
+override-redirect = false
+
+bottom = false
+fixed-center = true
+
+width = 100%
+height = 25
+
+radius = 8
+border-top-size = 0.5%
+border-left-size = 0.75%
+border-right-size = 0.75%
+
+background = ${color.background}
+foreground = ${color.foreground}
+
+line-size = 2
+line-color = ${color.blue}
+
+padding-left = 1
+padding-right = 1
+
+module-margin-left = 0
+module-margin-right = 0
+
+font-0 = "Ubuntu Mono Nerd Font:size=11;2"
+font-1 = "Iosevka Nerd Font:size=12;3"
+font-2 = "Iosevka Nerd Font:size=16;4"
+font-3 = "Iosevka Nerd Font:size=18;4"
+
+modules-left = spacing BLD launcher BRD modulesep modulesep GLD cpu YPL memory CPL filesystem CRD modulesep MLD network MRD
+modules-center = LD i3 RD
+modules-right = RLD battery RRD modulesep GLD volume YPL brightness YRD modulesep BLD time BRD modulesep modulesep MLD powermenu MRD spacing
+
+dim-value = 1.0
+
+tray-position = right
+tray-detached = false
+tray-maxsize = 16
+tray-background = ${color.background}
+tray-offset-x = 0
+tray-offset-y = 0
+tray-padding = 5
+tray-scale = 1
+
+enable-ipc = true
+
+cursor-click = 
+cursor-scroll = 
+
+[settings]
+throttle-output = 5
+throttle-output-for = 10
+
+screenchange-reload = false
+
+compositing-background = source
+compositing-foreground = over
+compositing-overline = over
+compositing-underline = over
+compositing-border = over
+
+pseudo-transparency = false

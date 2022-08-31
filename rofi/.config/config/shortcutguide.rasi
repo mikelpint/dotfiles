@@ -1,0 +1,43 @@
+@import "theme"
+
+* {
+    font: "UbuntuMono Nerd Font 12";
+}
+
+window {
+    location: south west;
+    x-offset: 14px;
+    y-offset: -32px;
+    width: 40%;
+}
+
+horibox {
+    children: [ textbox-custom, listview ];
+}
+
+entry {
+    enabled: false;
+}
+
+textbox-custom {
+    expand: false;
+    content: "Atajos de teclado\n";
+    horizontal-align: 0.5;
+    font: "UbuntuMono Nerd Font 14";
+}
+
+listview {
+    layout: vertical;
+    spacing: 5px;
+    padding: 0px 0px;
+    lines: 19;
+    columns: 2;
+    fixed-columns: true;
+}
+
+element selected normal,
+element selected urgent,
+element selected active {
+    text-color: #D8DEE9;
+    background-color: #2E3440;
+}

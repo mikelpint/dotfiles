@@ -1,0 +1,10 @@
+#!/bin/bash
+
+pidof nm-applet
+
+if [ $? -eq 1 ]
+then
+    nm-applet & disown
+else
+    kill -9 $(pidof nm-applet)
+fi

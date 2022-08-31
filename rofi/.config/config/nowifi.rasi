@@ -1,0 +1,11 @@
+@import "theme"
+
+@import "wifimenu"
+
+window {
+    width: 19.5%;
+}
+
+listview {
+    lines: 1;
+}

@@ -1,0 +1,3 @@
+[include]
+    path = ~/.gitconf/config
+    path = ~/.gitconf/credentials

@@ -1,0 +1,84 @@
+#!/bin/bash
+
+# This script changes the brightness of the keyboard in ASUS laptops depending on
+# the already set keyboard brightness (off, low, med or high).
+
+# asusctl (https://asus-linux.org/asusctl/) is required.
+
+# It has been designed to work with my dotfiles (https://github.com/mikelpint/dotfiles) for the ASUS ROG Strix G15 G513IH.
+# That's because it receives 0 as the first parameter from i3 whenever the keyboard brightness down key (FN + F2) is pressed and
+# 1 in case the keyboard brightness up key (FN + F3) is pressed.
+
+# Check if asusctl is installed.
+if [ ! -f /usr/bin/asusctl ]
+then
+    # If it is not installed, a notification is sent to the notification daemon (dunst, notify-osd, ...) and the script exits with error code 1.
+    notify-send "No se puede cambiar el brillo del teclado." "Instala asusctl."
+    exit 1
+fi
+
+# The current keyboard brightness is obtained by from the output of the command 'asusctl -k'
+# by reading the characters whose index is 34 or more.
+kbdbrightness=$(asusctl -k | cut -c 34-)
+
+# Depending on the current keyboard brightness:
+
+# If its 'off' (brightness = 48):
+if [ $kbdbrightness = '48' ]
+then
+    # If the user wants to lower the brightness:
+    if [ $1 = 0 ]
+    then
+        # Nothing happens as the keyboard backlight is already off.
+        :
+
+    # If the user wants to raise the brightness:
+    else
+        # Set the keyboard brightness to 'low'.
+        asusctl -k low
+    fi
+
+# If its 'off' (brightness = 48):
+elif [ $kbdbrightness = '49' ]
+then
+    # If the user wants to lower the brightness:
+    if [ $1 = 0 ]
+    then
+        # Set the keyboard brightness to 'off'.
+        asusctl -k off
+
+    # If the user wants to raise the brightness:
+    else
+        # Set the keyboard brightness to 'med'.
+        asusctl -k med
+    fi
+
+# If its 'off' (brightness = 48):
+elif [ $kbdbrightness = '50' ]
+then
+    # If the user wants to lower the brightness:
+    if [ $1 = 0 ]
+    then
+        # Set the keyboard brightness to 'low'.
+        asusctl -k low
+
+    # If the user wants to raise the brightness:
+    else
+        # Set the keyboard brightness to 'high'.
+        asusctl -k high
+    fi
+
+# If its 'high' (brightness = 51):
+else
+    # If the user wants to lower the brightness:
+    if [ $1 = 0 ]
+    then
+        # Set the keyboard brightness to 'med'.
+        asusctl -k med
+
+    # If the user wants to raise the brightness:
+    else
+        # Nothing happens as the keyboard backlight is already at its maximum.
+        :
+    fi
+fi

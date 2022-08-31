@@ -1,0 +1,45 @@
+#!/bin/sh
+
+# Based on Manas140's dotfiles' lockscreen (https://github.com/Manas140/dotfiles).
+
+# Requires i3lock-color (https://github.com/Raymo111/i3lock-color)
+
+greet="Bienvenido de vuelta."
+color="#E5E9F0"
+wrong_pass="Incorrecto, inténtalo de nuevo."
+font="UbuntuMono NerdFont"
+background="$HOME/Imágenes/Fondos/2.png"
+
+i3lock \
+  --nofork \
+  --ignore-empty-password \
+  --indicator \
+  --bar-indicator \
+  --bar-pos="1075" \
+  --bar-base-width="5" \
+  --bar-orientation=horizontal \
+  --bar-color=2E3440 \
+  --ringver-color=$color \
+  --ringwrong-color=$color \
+  --bshl-color=$color \
+  --keyhl-color=$color \
+  --clock \
+  --time-color=$color \
+  --time-str="%H:%M:%S" \
+  --time-font="$font" \
+  --time-size=72 \
+  --time-color=$color \
+  --date-color=$color \
+  --date-str="%A, %d %B" \
+  --date-color=$color \
+  --date-font="$font" \
+  --date-size=18 \
+  --verif-font="$font" \
+  --verif-size=24 \
+  --verif-text="$greet" \
+  --verif-color=$color\
+  --wrong-font="$font" \
+  --wrong-size=24 \
+  --wrong-text="$wrong_pass" \
+  --wrong-color=$color \
+  -i $background

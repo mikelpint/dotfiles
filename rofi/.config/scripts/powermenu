@@ -1,0 +1,23 @@
+#!/bin/bash
+
+SHUTDOWN="襤"
+REBOOT="累"
+LOGOUT="﫼"
+
+OPTIONS="$SHUTDOWN\n$REBOOT\n$LOGOUT\0"
+
+ROFI_COMMAND="rofi -show powermenu -modi powermenu:$HOME/.config/rofi/powermenu -config $HOME/.config/rofi/config/powermenu.rasi"
+
+CHOSEN="$(echo -e "$OPTIONS" | $ROFI_COMMAND -dmenu)"
+
+case $CHOSEN in
+    $SHUTDOWN)
+        shutdown now
+        ;;
+    $REBOOT)
+        reboot
+        ;;
+    $LOGOUT)
+        i3-msg exit
+        ;;
+esac
