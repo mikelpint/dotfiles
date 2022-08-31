@@ -16,7 +16,7 @@ check_os () {
         return
     fi
 
-    if [ -f "/etc/arch-release"]
+    if [ -f "/etc/arch-release" ]
     then
         OPERATING_SYSTEM=3
     fi
@@ -61,6 +61,12 @@ check_dependencies () {
                 if [ -d "$(command -v i3)" ]
                 then
                     install_i3
+                fi
+                ;;
+            keychain)
+                if [ -d "$(command -v keychain)" ]
+                then
+                    install_keychain
                 fi
                 ;;
             neofetch)
@@ -226,15 +232,35 @@ install_i3 () {
         1)
             sudo dnf install -y i3-gaps > /dev/null 2>&1
             ;;
-
         2)
-            sudo add-apt-repository ppa:regolith-linux/release -y
-            sudo apt update -Y
-            sudo apt install -y i3-gaps
+            sudo add-apt-repository ppa:regolith-linux/release -y > /dev/null 2>&1
+            sudo apt update -y > /dev/null 2>&1
+            sudo apt install -y i3-gaps > /dev/null 2>&1
             ;;
-
         3)
             sudo pacman -S --noconfirm i3-gaps > /dev/null 2>&1
+            ;;
+    esac
+}
+
+install_keychain () {
+    if [ $OPERATING_SYSTEM -eq 4 ]
+    then
+        echo "Please, install Keychain."
+        exit 1
+    fi
+
+    echo "Installing Keychain..."
+
+    case $OPERATING_SYSTEM in
+        1)
+            sudo dnf install -y keychain > /dev/null 2>&1
+            ;;
+        2)
+            sudo apt install -y keychain > /dev/null 2>&1
+            ;;
+        3)
+            sudo pacman -S --noconfirm keychain > /dev/null 2>&1
             ;;
     esac
 }
@@ -277,11 +303,9 @@ install_picom () {
         1)
             sudo dnf install -y picom > /dev/null 2>&1
             ;;
-
         2)
             sudo apt install -y picom > /dev/null 2>&1
             ;;
-
         3)
             sudo pacman -S --noconfirm picom > /dev/null 2>&1
             ;;
@@ -478,6 +502,13 @@ git_dots () {
     delete_empty_backup_dir git
 
     stow git
+
+    local git_name
+    local git_email
+    read -rp "Enter your name: " git_name
+    read -rp "Enter your email address: " git_email
+
+    echo -e "[user]\n    user = $git_name\n    email = $git_email" > $HOME/.gitconf/credentials
 }
 
 i3_dots () {
@@ -618,7 +649,7 @@ x11_dots () {
 }
 
 zsh_dots () {
-    check_dependencies zsh
+    check_dependencies keychain zsh
 
     previous_backup zsh
     create_backup_dir zsh

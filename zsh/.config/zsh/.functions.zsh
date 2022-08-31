@@ -40,4 +40,11 @@ fi
 export GITLAB_API_ENDPOINT="https://gitlab.com/api/v3"
 
 # ssh-agent at startup
-eval `keychain -q --agents ssh --eval id_ecdsa_sk --nogui`
+if [[ -f $HOME/.ssh/id_ecdsa_sk ]]
+then
+    eval `keychain -q --agents ssh --eval id_ecdsa_sk --nogui`
+
+elif [[ -f $HOME/.ssh/id_rsa  ]]
+then
+    eval `keychain -q --agents ssh --eval id_rsa --nogui`
+fi
