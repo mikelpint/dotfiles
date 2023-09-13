@@ -64,6 +64,9 @@ set -g @plugin 'tmux-plugins/tmux-sensible'
 
 # Design
 
+# Truecolor
+set-option -ga terminal-overrides ",xterm-256color:Tc"
+
 # Set theme to Nord
 set -g @plugin "arcticicestudio/nord-tmux"
 

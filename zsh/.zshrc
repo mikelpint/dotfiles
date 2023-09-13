@@ -8,14 +8,35 @@ export PATH=$PATH:/sbin
 # Add downloaded binaries to PATH
 export PATH=$PATH:~/.binaries
 
+# Allow OBS to capture screen on Wayland
+export QT_QPA_PLATFORM="wayland;xcb"
+
+# Load shared objects immediately for better first time latency in MangoHud
+export LD_BIND_NOW=1
+
+# MangoHud in Vulkan games
+export MANGOHUD=1
+
+# FSync while using Wine
+export WINEFSYNC=1
+
+# Payloads directory for fusee-launcher
+export SWPL=/opt/fusee-launcher
+
 # Add Gem packages to $PATH
 export PATH=$PATH:~/.gem/ruby/2.5.0/bin
 
 # Add Spicetify to path
 export PATH="$PATH:$HOME/.spicetify"
 
-# Set language to Spanish.
-export LANG=es_ES.UTF-8
+# Set language to American English.
+export LANG=en_US.UTF-8
+
+# Intel C Compiler
+export PATH=$PATH:/opt/intel/oneapi/compiler/latest/linux/bin
+
+# Set the default Vagrant provider to VirtualBox
+export VAGRANT_DEFAULT_PROVIDER=virtualbox
 
 # For using URxvt
 export WORDCHARS='*?_-.[]~=/&;!#$%^(){}<>'
@@ -56,7 +77,7 @@ plugins=(
 )
 
 # Tmux plugin's configuration
-if [ "$TERM_PROGRAM" != "vscode" ]
+if [ "$TERM_PROGRAM" != "vscode" ] && [[ $(ps -o comm= -p $(ps -o ppid= -p $$)) != *"clion"* ]] && [ "$CLION" != true ]
 then
     export ZSH_TMUX_AUTOSTART=true
     export ZSH_TMUX_AUTOCONNECT=true
@@ -77,3 +98,4 @@ source "$ZSH_CUSTOM/plugins/calc.zsh"
 # Aliases and fuctions
 source "$HOME/.config/zsh/.functions.zsh"
 source "$HOME/.config/zsh/.aliases.zsh"
+source /usr/share/nvm/init-nvm.sh
